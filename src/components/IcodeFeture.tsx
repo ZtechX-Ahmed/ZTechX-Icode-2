@@ -17,7 +17,7 @@ export default function IcodeFeture() {
             {/* Central Phone */}
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
               <img 
-              src="./public/orange mockup.png"
+              src="./orange mockup.png"
               alt="ICODE Features Circle"
               className="w-[210px] sm:w-[220px] lg:w-[215px] h-auto object-contain"
               style={{
