@@ -102,7 +102,7 @@ export default function FetureQrmiddleSection() {
             }}
           >
             <motion.img
-          src="./public/Circle-QR.png"
+          src="./Circle-QR.png"
           alt="QR Circle"
           className="w-[120px] h-[120px] object-contain relative z-10"
           animate={{ 
