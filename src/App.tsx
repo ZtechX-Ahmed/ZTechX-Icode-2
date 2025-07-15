@@ -12,7 +12,8 @@ import IcodeFeture from './components/IcodeFeture';
 import NavBar from './components/NavBar';
 import PhoneForm from './components/PhoneForm';
 import PhoneMockup from './components/test';
-
+import OrangeHeroFormSection from './components/OrangeHeroFormSection';
+import SubscriptionForm from './components/SubscriptionForm';
 function App() {
   return (
       <div className="App">
@@ -27,6 +28,7 @@ function App() {
       <div id="feature-cards" className="section"><FeatureCards /></div>
       <div id="features-details" className="section FeaturesDetailsSection-section"><FeaturesDetailsSection /></div>
       <div id="contact" className="section"><ContactForm /></div>
+      <div id="subscription-form" className="section"><SubscriptionForm /></div>
     </div>
   );
 }
