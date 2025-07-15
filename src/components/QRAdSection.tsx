@@ -22,7 +22,7 @@ export default function QRAdSection() {
                  }
                }}>
               <img
-              src="./public/gpy mockup.png"
+              src="./gpy mockup.png"
               alt="ICODE QR Mockup"
               className="w-[490px] md:w-[520px] max-w-full h-auto object-contain"
               style={{
