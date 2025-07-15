@@ -131,7 +131,7 @@ export default function PartnersSection() {
               }}
             >
               <motion.img 
-                src="./public/partenares.png" 
+                src="./partenares.png" 
                 alt="شركاء النجاح" 
                 className="w-full max-w-2xl rounded-3xl shadow-lg object-cover h-64"
                 initial={{ opacity: 0, rotateY: 180 }}
