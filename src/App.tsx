@@ -20,11 +20,10 @@ function App() {
 
       <div id="qr-ad" className="section"><QRAdSection /></div>
       <div id="qr-middle" className="section"><FetureQrmiddleSection /></div>
-      <div id="why-choose" className="section"><WhyChooseSection /></div>
+      <div id="test" className ="section"><PhoneMockup /></div>
       <div id="icode-feature" className="section"><IcodeFeture /></div>
       <div id="partners" className="section"><PartnersSection /></div>
        <div id="phone-form" className="section"> <PhoneForm /> </div>
-        <div id="test" className ="section"><PhoneMockup /></div>
       <div id="feature-cards" className="section"><FeatureCards /></div>
       <div id="features-details" className="section FeaturesDetailsSection-section"><FeaturesDetailsSection /></div>
       <div id="contact" className="section"><ContactForm /></div>
