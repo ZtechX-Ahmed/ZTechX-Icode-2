@@ -412,7 +412,7 @@ export default function PhoneMockup() {
                 {/* الهاتف في المنتصف */}
                 <div className="w-[700px] sm:w-[750px] h-[500px] bg-transparent z-10 relative flex items-center justify-center animate-drop-down">
                     <img
-                        src="./public/icode phone.png"
+                        src="./icode phone.png"
                         alt="Phone Mockup"
                         className="w-full h-full object-contain drop-shadow-2xl"
                     />
