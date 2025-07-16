@@ -14,7 +14,6 @@ function App() {
   return (
     <div className="App min-h-screen text-gray-800">
       <NavBar />
-      <section id="qr-ad" className=""><QRAdSection /></section>
       <section id="qr-middle" className=""><FetureQrmiddleSection /></section>
       <section id="test" className=""><PhoneMockup /></section>
       <section id="icode-feature" className=""><IcodeFeture /></section>
