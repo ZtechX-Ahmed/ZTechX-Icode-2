@@ -363,166 +363,223 @@
 //     </div>
 //   );
 // };
-import React, { useEffect, useState } from "react";
+// "use client";
+
+// import React from "react";
+// import { cn } from "..//lib/utils";
+// import { AnimatedList } from './magicui/animated-list';
+// import Iphone15Pro from "./magicui/iphone-15-pro";
+
+// interface Item {
+//     title: string;
+//     description: string;
+//     icon: string;
+//     color: string;
+//     time: string;
+// }
+
+// let messages = [
+//     {
+//         title: "دعم مستمر",
+//         description: "فريق متاح 24/7",
+//         time: "الآن",
+//         icon: "🎧",
+//         color: "#FF4A1C",
+//     },
+//     {
+//         title: "بلا عمولات",
+//         description: "أرباحك كاملة",
+//         time: "مباشر",
+//         icon: "💰",
+//         color: "#00C9A7",
+//     },
+//     {
+//         title: "تصميم مميز",
+//         description: "يعكس احترافيتك",
+//         time: "فوري",
+//         icon: "🎨",
+//         color: "#FFB800",
+//     },
+//     {
+//         title: "منصة شاملة",
+//         description: "كل ما تحتاجه",
+//         time: "متاح",
+//         icon: "🚀",
+//         color: "#1E86FF",
+//     },
+// ];
+
+// messages = Array.from({ length: 6 }, () => messages).flat();
+
+// const MessageNotification = ({ title, description, icon, color, time }: Item) => {
+//     return (
+//         <figure
+//             className={cn(
+//                 "relative mx-auto min-h-fit w-full max-w-[200px] cursor-pointer overflow-hidden rounded-2xl p-3",
+//                 // animation styles
+//                 "transition-all duration-200 ease-in-out hover:scale-[103%]",
+//                 // light styles
+//                 "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+//                 // Arabic text alignment
+//                 "text-right font-arabic",
+//             )}
+//         >
+//             <div className="flex flex-row-reverse items-center gap-2">
+//                 <div
+//                     className="flex size-8 items-center justify-center rounded-xl"
+//                     style={{
+//                         backgroundColor: color,
+//                     }}
+//                 >
+//                     <span className="text-sm">{icon}</span>
+//                 </div>
+//                 <div className="flex flex-col overflow-hidden">
+//                     <figcaption className="flex flex-row-reverse items-center whitespace-pre text-sm font-bold text-[#0B2A52]">
+//                         <span className="text-xs sm:text-sm">{title}</span>
+//                         <span className="mx-1">·</span>
+//                         <span className="text-xs text-gray-500">{time}</span>
+//                     </figcaption>
+//                     <p className="text-xs font-normal text-gray-600">
+//                         {description}
+//                     </p>
+//                 </div>
+//             </div>
+//         </figure>
+//     );
+// };
+
+// export default function PhoneMockup() {
+//     return (
+//         <div className="min-h-screen bg-[#f2f2f2] flex flex-col items-center justify-center py-10 px-4 relative overflow-hidden">
+//             {/* العنوان */}
+//             <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0B2A52] mb-8 text-center font-arabic leading-snug">
+//                 لماذا تختار <span className="text-[#FF4A1C]">ICODE</span>؟
+//             </h2>
+
+//             {/* الحاوية الكاملة */}
+//             <div className="relative w-full max-w-6xl flex justify-center items-center">
+//                 {/* الهاتف في المنتصف مع الرسائل بداخله */}
+//                 <div className="relative">
+//                     <Iphone15Pro className="size-full" src="https://via.placeholder.com/430x880">
+//                         <div className="absolute inset-0 p-4 flex flex-col justify-start gap-2 overflow-y-auto">
+//                             <AnimatedList>
+//                                 {messages.map((item, idx) => (
+//                                     <MessageNotification {...item} key={idx} />
+//                                 ))}
+//                             </AnimatedList>
+//                         </div>
+//                     </Iphone15Pro>
+//                 </div>
+//             </div>
+//         </div>
+//     );
+// }
+"use client";
+import { motion } from "framer-motion";
+import React from "react";
 
 export default function PhoneMockup() {
-    return (
-        <div className="min-h-screen bg-[#f2f2f2] flex flex-col items-center justify-center py-10 px-4 relative overflow-hidden">
-            {/* الأنيميشنات داخل الكود */}
-            <style>{`
-                @keyframes slideLeft {
-                    0% { transform: translateX(-80%); opacity: 0; }
-                    100% { transform: translateX(0); opacity: 1; }
-                }
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-[#f8f8f8] to-[#e5e5e5] flex flex-col items-center justify-center py-10 overflow-hidden px-4 relative">
+      {/* العنوان */}
+      <motion.h2
+        initial={{ opacity: 0, y: -30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+        className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#0B2A52] mb-12 text-center font-[Cairo] leading-snug"
+      >
+        لماذا تختار <span className="text-[#FF4A1C]">ICODE</span>؟
+      </motion.h2>
 
-                @keyframes slideRight {
-                    0% { transform: translateX(80%); opacity: 0; }
-                    100% { transform: translateX(0); opacity: 1; }
-                }
+      {/* الحاوية الكاملة */}
+      <div className="relative w-full max-w-md flex justify-center items-center">
+        {/* Left Messages */}
+        <AnimatedMessage
+          delay={0.5}
+          side="left"
+          top="top-10"
+          offset="-translate-x-[110%] sm:-translate-x-[130%]"
+          title="جاهزون دائمًا لدعمك"
+          desc="فريق دعم متواجد على مدار الساعة لضمان سير العمل بسلاسة"
+        />
 
-                @keyframes dropDown {
-                    0% { transform: translateY(-50%); opacity: 0; }
-                    100% { transform: translateY(0); opacity: 1; }
-                }
+        <AnimatedMessage
+          delay={1.1}
+          side="left"
+          top="bottom-10"
+          offset="-translate-x-[120%] sm:-translate-x-[135%]"
+          title="أرباحك كاملة بلا عمولات"
+          desc="نحن نؤمن أن دخلك من حقك وحدك، لذلك لا نأخذ أي نسبة من مبيعاتك"
+        />
 
-                .animate-slide-from-phone-left {
-                    animation: slideLeft 0.8s ease-out forwards;
-                }
+        {/* Right Messages */}
+        <AnimatedMessage
+          delay={0.8}
+          side="right"
+          top="top-14"
+          offset="translate-x-[110%] sm:translate-x-[130%]"
+          title="أبهر عملائك بتصميم مميز"
+          desc="تصميم مرن يليق بمنتجاتك ليكون انعكاسًا لتجربة العمل معك"
+        />
 
-                .animate-slide-from-phone-right {
-                    animation: slideRight 0.8s ease-out forwards;
-                }
+        <AnimatedMessage
+          delay={1.4}
+          side="right"
+          top="bottom-20"
+          offset="translate-x-[120%] sm:translate-x-[135%]"
+          title="منصة واحدة لكل ما تحتاج"
+          desc="احدى بين الطلبات، المخزونات، التنبيهات، الكوبونات في منصة متكاملة تحت إدارتك"
+        />
 
-                .animate-drop-down {
-                    animation: dropDown 0.6s ease-out forwards;
-                }
-
-                .delay-300 { animation-delay: 0.3s; }
-                .delay-700 { animation-delay: 0.7s; }
-                .delay-1000 { animation-delay: 1s; }
-            `}</style>
-
-            {/* العنوان */}
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#0B2A52] mb-8 text-center font-arabic leading-snug">
-                لماذا تختار <span className="text-[#FF4A1C]">ICODE</span>؟
-            </h2>
-
-            {/* الحاوية الكاملة */}
-            <div className="relative w-full max-w-5xl flex justify-center items-center">
-                {/* الهاتف في المنتصف */}
-                <div className="w-[700px] sm:w-[750px] h-[500px] bg-transparent z-10 relative flex items-center justify-center animate-drop-down">
-                    <img
-                        src="./icode phone.png"
-                        alt="Phone Mockup"
-                        className="w-full h-full object-contain drop-shadow-2xl"
-                    />
-                </div>
-
-                {/* Left Message Clouds (قريبة جدًا للموبايل) */}
-                <div className="absolute top-[100px] left-[-20px] animate-slide-from-phone-left z-20">
-                    <MessageCloud
-                        side="left"
-                        title="جاهزون دائمًا لدعمك"
-                        desc="فريق دعم متواجد على مدار الساعة لضمان سير العمل بسلاسة"
-                    />
-                </div>
-
-                <div className="absolute bottom-[100px] left-[-20px] animate-slide-from-phone-left delay-700 z-20">
-                    <MessageCloud
-                        side="left"
-                        title="أرباحك كاملة بلا عمولات"
-                        desc="دخلك من حقك وحدك، لا نأخذ أي نسبة من مبيعاتك"
-                    />
-                </div>
-
-                {/* Right Message Clouds (قريبة جدًا للموبايل) */}
-                <div className="absolute top-[100px] right-[-20px] animate-slide-from-phone-right delay-300 z-20">
-                    <MessageCloud
-                        side="right"
-                        title="أبهر عملائك بتصميم مميز"
-                        desc="لوحة تصميم مرنة تعكس احترافية عملك"
-                    />
-                </div>
-
-                <div className="absolute bottom-[100px] right-[-20px] animate-slide-from-phone-right delay-1000 z-20">
-                    <MessageCloud
-                        side="right"
-                        title="منصة واحدة لكل ما تحتاج"
-                        desc="طلبات، تنبيهات، كوبونات، متابعة... في مكان واحد"
-                    />
-                </div>
-            </div>
-        </div>
-    );
+        {/* الهاتف */}
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          className="w-[260px] sm:w-[300px] h-[500px] bg-[#293B70] rounded-[40px] shadow-2xl border-[6px] border-white z-10 relative overflow-hidden flex items-end justify-center pb-10"
+        >
+          <div className="text-white font-bold text-xl tracking-wider font-[Cairo]">
+            <span className="text-[#FF4A1C]">I</span>code
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  );
 }
 
-interface CloudProps {
-    title: string;
-    desc: string;
-    side: "left" | "right";
+interface Props {
+  title: string;
+  desc: string;
+  side: "left" | "right";
+  delay: number;
+  top: string;
+  offset: string;
 }
 
-const MessageCloud = ({ title, desc, side }: CloudProps) => {
-    const [displayedText, setDisplayedText] = useState("");
-    const typingSpeed = 25;
-
-    useEffect(() => {
-        let index = 0;
-        const timer = setInterval(() => {
-            if (index < desc.length) {
-                setDisplayedText((prev) => prev + desc[index]);
-                index++;
-            } else {
-                clearInterval(timer);
-            }
-        }, typingSpeed);
-
-        return () => clearInterval(timer);
-    }, [desc]);
-
-    return (
-        <div className="relative">
-            <div
-                className={`bg-white shadow-lg px-6 py-4 rounded-[30px] relative max-w-[250px] w-[220px] text-sm text-[#293B70] font-arabic ${
-                    side === "right" ? "text-right" : ""
-                } border border-gray-100`}
-                style={{
-                    borderRadius: "30px 30px 30px 8px",
-                    filter: "drop-shadow(0 10px 25px rgba(0,0,0,0.15))",
-                }}
-            >
-                <span className="font-bold text-[#FF4A1C] block mb-2 text-base">
-                    {title}
-                </span>
-                <span className="leading-relaxed whitespace-pre-line">{displayedText}</span>
-
-                {/* Cloud Tail */}
-                <div
-                    className={`absolute ${
-                        side === "right"
-                            ? "left-[-15px] top-1/2 -translate-y-1/2"
-                            : "right-[-15px] top-1/2 -translate-y-1/2"
-                    }`}
-                >
-                    <div className="relative">
-                        <div
-                            className={`w-6 h-6 bg-white border border-gray-100 ${
-                                side === "right" ? "rotate-45" : "-rotate-45"
-                            }`}
-                        ></div>
-                        <div
-                            className={`absolute top-0 w-6 h-6 bg-white ${
-                                side === "right" ? "rotate-45" : "-rotate-45"
-                            }`}
-                        ></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
+const AnimatedMessage = ({ title, desc, side, delay, top, offset }: Props) => {
+  return (
+    <motion.div
+      className={`absolute ${top} ${offset} z-20`}
+      initial={{ opacity: 0, y: 50, scale: 0.8 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.8, delay }}
+    >
+      <div
+        className={`bg-white backdrop-blur-sm bg-opacity-80 shadow-xl px-5 py-3 rounded-[30px] relative max-w-[220px] w-[200px] text-sm text-[#293B70] font-[Cairo] ${
+          side === "right" ? "text-right" : "text-left"
+        }`}
+      >
+        <span className="font-bold text-[#FF4A1C] block mb-1">{title}</span>
+        <span>{desc}</span>
+        <div
+          className={`absolute top-1/2 ${
+            side === "right" ? "left-[-10px]" : "right-[-10px]"
+          } w-5 h-5 bg-white bg-opacity-80 rotate-45 -translate-y-1/2 shadow-md`}
+        ></div>
+      </div>
+    </motion.div>
+  );
 };
-
-
 
 // import React from "react";
 
