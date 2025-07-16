@@ -1,6 +1,6 @@
 import React from "react";
-import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
-import { BoxReveal } from "./magicui/box-reveal";
+//import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
+//import { BoxReveal } from "./magicui/box-reveal";
 export default function QRAdSection() {
   return (
 <section className="relative min-h-[540px] flex items-center justify-center bg-gradient-to-b from-[#F9F9F9] to-[#FFFFFF] overflow-hidden py-8" dir="rtl">
