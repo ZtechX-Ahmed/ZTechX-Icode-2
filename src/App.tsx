@@ -16,12 +16,10 @@ function App() {
       <NavBar />
       <section id="qr-ad" className=""> <QRAdSectionion/></section>
       <section id="qr-middle" className=""><FetureQrmiddleSection /></section>
-      <section id="test" className=""><PhoneMockup /></section>
       <section id="icode-feature" className=""><IcodeFeture /></section>
       <section id="partners" className=""><PartnersSection /></section>
       <section id="phone-form" className=""><PhoneForm /></section>
       <section id="feature-cards" className=""><FeatureCards /></section>
-      <section id="contact" className=""><ContactForm /></section>
       <section id="subscription-form" className=""><SubscriptionForm /></section>
     </div>
   );
