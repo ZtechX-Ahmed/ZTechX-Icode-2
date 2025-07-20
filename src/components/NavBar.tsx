@@ -46,7 +46,7 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      scrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+      scrolled ? 'bg-white shadow-lg' : 'bg-white'
     }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-20">
@@ -64,49 +64,32 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center gap-8">
-            <motion.a 
-              whileHover={{ y: -3 }}
-              onClick={() => scrollToSection('qr-ad')}
-              className={`cursor-pointer text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium ${activeSection === 'qr-ad' ? 'text-[#F25022]' : ''}`}
-            >
-              الرئيسية
-            </motion.a>
-            <motion.a 
-              whileHover={{ y: -3 }}
-              onClick={() => scrollToSection('qr-middle')}
-              className={`cursor-pointer text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium ${activeSection === 'qr-middle' ? 'text-[#F25022]' : ''}`}
-            >
-              Icode لماذا تختار
-            </motion.a>
-            <motion.a 
-              whileHover={{ y: -3 }}
-              onClick={() => scrollToSection('icode-feature')}
-              className={`cursor-pointer text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium ${activeSection === 'icode-feature' ? 'text-[#F25022]' : ''}`}
-            >
-              ICODE مميزات
-            </motion.a>
-            <motion.a 
-              whileHover={{ y: -3 }}
-              onClick={() => scrollToSection('feature-cards')}
-              className={`cursor-pointer text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium ${activeSection === 'feature-cards' ? 'text-[#F25022]' : ''}`}
-            >
-              ICODE باقات
-            </motion.a>
-            <motion.a 
-              whileHover={{ y: -3 }}
-              onClick={() => scrollToSection('partners')}
-              className={`cursor-pointer text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium ${activeSection === 'partners' ? 'text-[#F25022]' : ''}`}
-            >
-              شركاء وارقام
-            </motion.a>
+          <div className="hidden lg:flex items-center gap-4">
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => scrollToSection('subscription-form')}
-              className="bg-[#F25022] hover:bg-[#d63e1a] text-white px-6 py-2 rounded-lg font-cairo font-medium transition-all duration-300 shadow-md hover:shadow-lg"
+              className="bg-[#F25022] hover:bg-[#d63e1a] text-white px-6 py-2.5 rounded-full font-cairo font-medium transition-all duration-300 shadow-md hover:shadow-lg"
             >
               اشترك الآن
+            </motion.button>
+            
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('icode-feature')}
+              className="bg-transparent border-2 border-gray-300 hover:border-[#F25022] text-gray-700 hover:text-[#F25022] px-6 py-2 rounded-full font-cairo font-medium transition-all duration-300"
+            >
+              مميزات ICode
+            </motion.button>
+            
+            <motion.button 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollToSection('qr-ad')}
+              className="bg-transparent border-2 border-gray-300 hover:border-[#F25022] text-gray-700 hover:text-[#F25022] px-6 py-2 rounded-full font-cairo font-medium transition-all duration-300"
+            >
+              الصفحة الرئيسية
             </motion.button>
           </div>
 
@@ -131,45 +114,24 @@ const Navbar = () => {
               className="lg:hidden bg-white border-t border-gray-200 shadow-lg overflow-hidden"
             >
               <div className="px-4 py-6 space-y-4">
-                <motion.a 
+                <motion.button 
                   whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection('qr-ad')}
-                  className="block text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
+                  className="block w-full text-right text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
                 >
-                  الرئيسية
-                </motion.a>
-                <motion.a 
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('qr-middle')}
-                  className="block text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
-                >
-                  Icode لماذا تختار
-                </motion.a>
-                <motion.a 
+                  الصفحة الرئيسية
+                </motion.button>
+                <motion.button 
                   whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection('icode-feature')}
-                  className="block text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
+                  className="block w-full text-right text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
                 >
-                  ICODE مميزات
-                </motion.a>
-                <motion.a 
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('feature-cards')}
-                  className="block text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
-                >
-                  ICODE باقات
-                </motion.a>
-                <motion.a 
-                  whileTap={{ scale: 0.95 }}
-                  onClick={() => scrollToSection('partners')}
-                  className="block text-gray-700 hover:text-[#F25022] transition-colors font-cairo font-medium py-2"
-                >
-                  شركاء وارقام
-                </motion.a>
+                  مميزات ICode
+                </motion.button>
                 <motion.button 
                   whileTap={{ scale: 0.95 }}
                   onClick={() => scrollToSection('subscription-form')}
-                  className="w-full bg-[#F25022] hover:bg-[#d63e1a] text-white px-6 py-3 rounded-lg font-cairo font-medium transition-all duration-300 shadow-md hover:shadow-lg mt-4"
+                  className="w-full bg-[#F25022] hover:bg-[#d63e1a] text-white px-6 py-3 rounded-full font-cairo font-medium transition-all duration-300 shadow-md hover:shadow-lg mt-4"
                 >
                   اشترك الآن
                 </motion.button>
