@@ -1,113 +1,143 @@
-import React from "react";
-import { InteractiveHoverButton } from "./magicui/interactive-hover-button";
-import { BoxReveal } from "./magicui/box-reveal";
+import React, { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+
 export default function QRAdSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll('.scroll-animate');
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-<section className="relative min-h-[540px] flex items-center justify-center bg-gradient-to-b from-[#F9F9F9] to-[#FFFFFF] overflow-hidden py-8" dir="rtl">
-        <div className="container mx-auto flex flex-col md:flex-row-reverse items-center justify-center gap-8 md:gap-16 px-4">
-          {/* Right: Phone Mockup with QR - now on the left */}
-          <div className="order-2 md:order-1 flex-1 flex items-center justify-center relative min-w-[360px]">
-            {/* Phone with QR */}
-            <div className="relative z-10 opacity-0 translate-y-8 transition-all duration-1000 ease-out [&.animate-in]:opacity-100 [&.animate-in]:translate-y-0" 
-               ref={(el) => {
-                 if (el) {
-                 const observer = new IntersectionObserver(
-                   ([entry]) => {
-                   if (entry.isIntersecting) {
-                     el.classList.add('animate-in');
-                   }
-                   },
-                   { threshold: 0.1 }
-                 );
-                 observer.observe(el);
-                 }
-               }}>
-                <img
-              src="./first page.png"
-              alt="ICODE QR Mockup"
-              className="w-[490px] md:w-[520px] max-w-full h-auto object-contain"
-              style={{
-                filter: 'drop-shadow(0px 16px 48px rgba(0,42,92,0.18)) drop-shadow(0px 4px 32px rgba(0,0,0,0.13))',
-                borderRadius: '2.5rem',
-                background: 'none',
-              }}
-              draggable={false}
-              />
-            </div>
-          </div>
-          {/* Left: Text Content */}
-          <div className="flex-1 flex flex-col items-start justify-center gap-4 max-w-xl text-right animate-[slideInRight_1s_ease-out_0.8s_both]">
+    <section 
+      ref={sectionRef}
+      className="relative min-h-screen flex items-center justify-center unified-bg section-spacing overflow-hidden" 
+      dir="rtl"
+    >
+      {/* Background Decorative Elements */}
+      <div className="absolute inset-0 pointer-events-none opacity-20">
+        <motion.div 
+          className="absolute top-20 left-20 w-32 h-32 bg-[#FF4E00]/10 rounded-full blur-3xl"
+          animate={{ scale: [1, 1.2, 1], rotate: [0, 180, 360] }}
+          transition={{ duration: 20, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute bottom-20 right-20 w-48 h-48 bg-[#122E72]/10 rounded-full blur-3xl"
+          animate={{ scale: [1.2, 1, 1.2], rotate: [360, 180, 0] }}
+          transition={{ duration: 25, repeat: Infinity }}
+        />
+      </div>
+
+      <div className="container-responsive">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* Text Content */}
+          <motion.div 
+            className="order-2 lg:order-1 text-center lg:text-right space-y-6"
+            initial={{ opacity: 0, x: -100 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
             {/* ICODE Header */}
-            <h1
-              className="font-cairo font-extrabold text-[2.6rem] md:text-[3.2rem] text-[#23336A] mb-1"
-              style={{
-                textShadow: '0 2px 12px #e6e6e6, 0 1px 0 #fff',
-                letterSpacing: '0.01em',
-              }}
+            <motion.h1
+              className="heading-responsive gradient-text mb-4"
+              initial={{ opacity: 0, y: -50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <span className="text-[#F25022]">I</span>
-              <span className="text-[#23336A]">CODE</span>
-            </h1>
+              ICODE
+            </motion.h1>
+
             {/* Subtitle */}
-            <h2
-              className="font-cairo font-bold text-xl md:text-2xl text-[#23336A] mb-2"
-              style={{
-                textShadow: '0 2px 12px #e6e6e6, 0 1px 0 #fff',
-              }}
+            <motion.h2
+              className="subheading-responsive text-[#122E72] mb-6"
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.6 }}
             >
               كل ما تحتاجه في كود واحد.
-            </h2>
-            <p className="text-[#23336A] text-xs md:text-base font-cairo leading-relaxed mb-2 max-w-md" style={{textShadow: '0 1px 0 #fff'}}>
-              نحن في <span className="font-bold text-[#23336A]">ICODE</span> نبتكر حلولاً رقمية تُمكّن المطاعم والمقاهي من إدارة الطلبات والدفع أونلاين عبر منيو إلكتروني تفاعلي دون أي عمولة على المبيعات وتخصيص يعكس هوية كل علامة تجارية بشكل فريد.
-            </p>
-            <InteractiveHoverButton className="bg-[#F25022] hover:bg-[#d63e1a] text-white font-cairo font-bold rounded-xl py-3 px-10 text-lg shadow-[0_4px_24px_rgba(242,80,34,0.18)] mt-2 transition-all duration-200 animate-[bounceIn_0.8s_ease-out_1.5s_both]">زود أرباحك مع ICODE</InteractiveHoverButton>
-          </div>
+            </motion.h2>
+
+            <motion.p 
+              className="body-responsive text-[#122E72] mb-8 max-w-2xl mx-auto lg:mx-0"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.8 }}
+            >
+              نحن في <span className="font-bold gradient-text">ICODE</span> نبتكر حلولاً رقمية تُمكّن المطاعم والمقاهي من إدارة الطلبات والدفع أونلاين عبر منيو إلكتروني تفاعلي دون أي عمولة على المبيعات وتخصيص يعكس هوية كل علامة تجارية بشكل فريد.
+            </motion.p>
+
+            <motion.button 
+              className="bg-[#FF4E00] hover:bg-[#e63e00] text-white font-arabic font-bold rounded-xl py-4 px-8 text-responsive-lg shadow-enhanced btn-hover animate-pulse-glow"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 1 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              زود أرباحك مع ICODE
+            </motion.button>
+          </motion.div>
+
+          {/* Phone Mockup */}
+          <motion.div 
+            className="order-1 lg:order-2 flex items-center justify-center"
+            initial={{ opacity: 0, x: 100, scale: 0.8 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 1, delay: 0.3 }}
+          >
+            <div className="relative">
+              <motion.img
+                src="./first page.png"
+                alt="ICODE QR Mockup"
+                className="img-responsive phone-responsive animate-float"
+                style={{
+                  filter: 'drop-shadow(0px 20px 60px rgba(0,42,92,0.25)) drop-shadow(0px 8px 32px rgba(0,0,0,0.15))',
+                  borderRadius: '2.5rem',
+                }}
+                draggable={false}
+                whileHover={{ scale: 1.05, rotateY: 5 }}
+                transition={{ duration: 0.3 }}
+              />
+              
+              {/* Enhanced Shadow */}
+              <motion.div
+                className="absolute left-1/2 -translate-x-1/2 bottom-4 w-3/4 h-8 bg-black/20 rounded-full blur-xl"
+                animate={{ scale: [1, 1.1, 1] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+            </div>
+          </motion.div>
         </div>
-        <div className="mockup-phone">
-  <div className="mockup-phone-camera"></div>
-  <div className="mockup-phone-display text-white grid place-content-center">It's Glowtime.</div>
-</div>
-        
-        <style>{`
-          @keyframes slideDown {
-            0% {
-              transform: translateY(-100px);
-              opacity: 0;
-            }
-            100% {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes slideInRight {
-            0% {
-              transform: translateX(50px);
-              opacity: 0;
-            }
-            100% {
-              transform: translateX(0);
-              opacity: 1;
-            }
-          }
-          
-          @keyframes bounceIn {
-            0% {
-              transform: scale(0.3);
-              opacity: 0;
-            }
-            50% {
-              transform: scale(1.05);
-            }
-            70% {
-              transform: scale(0.9);
-            }
-            100% {
-              transform: scale(1);
-              opacity: 1;
-            }
-          }
-        `}</style>
-      </section>
+      </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+      >
+        <div className="w-6 h-10 border-2 border-[#FF4E00] rounded-full flex justify-center">
+          <motion.div 
+            className="w-1 h-3 bg-[#FF4E00] rounded-full mt-2"
+            animate={{ y: [0, 12, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          />
+        </div>
+      </motion.div>
+    </section>
   );
 }

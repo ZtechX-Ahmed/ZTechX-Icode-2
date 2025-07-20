@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronDown, Store, Phone, Activity, Sparkles, Star } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function SubscriptionForm() {
   const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ export default function SubscriptionForm() {
   });
 
   const [focusedField, setFocusedField] = useState('');
+  const sectionRef = useRef<HTMLElement>(null);
 
   const activities = [
     'مطعم',
@@ -19,6 +21,24 @@ export default function SubscriptionForm() {
     'وجبات سريعة',
     'أخرى'
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    const elements = sectionRef.current?.querySelectorAll('.scroll-animate');
+    elements?.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,18 +53,44 @@ export default function SubscriptionForm() {
   };
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-[#0B2A52] via-[#1e3a8a] to-[#2563eb] py-16 px-4 overflow-hidden">
-      {/* Animated background elements */}
+    <section 
+      ref={sectionRef}
+      className="relative min-h-screen unified-bg section-spacing overflow-hidden"
+    >
+      {/* Enhanced Background Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-4 h-4 bg-[#FF4A1C] rounded-full animate-pulse opacity-60"></div>
-        <div className="absolute top-40 right-20 w-6 h-6 bg-white rounded-full animate-bounce opacity-40"></div>
-        <div className="absolute bottom-40 left-20 w-3 h-3 bg-[#FF4A1C] rounded-full animate-ping opacity-50"></div>
-        <Sparkles className="absolute top-32 right-10 text-white/30 w-8 h-8 animate-spin" style={{animationDuration: '3s'}} />
-        <Star className="absolute bottom-32 right-32 text-[#FF4A1C]/40 w-6 h-6 animate-pulse" />
+        <motion.div 
+          className="absolute top-20 left-10 w-4 h-4 bg-[#FF4E00] rounded-full opacity-60"
+          animate={{ 
+            y: [0, -30, 0],
+            scale: [1, 1.5, 1],
+            opacity: [0.6, 1, 0.6]
+          }}
+          transition={{ duration: 3, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute top-40 right-20 w-6 h-6 bg-white rounded-full opacity-40"
+          animate={{ 
+            y: [0, 20, 0],
+            x: [0, 10, 0],
+            scale: [1, 0.8, 1]
+          }}
+          transition={{ duration: 4, repeat: Infinity }}
+        />
+        <motion.div 
+          className="absolute bottom-40 left-20 w-3 h-3 bg-[#FF4E00] rounded-full opacity-50"
+          animate={{ 
+            scale: [1, 2, 1],
+            opacity: [0.5, 1, 0.5]
+          }}
+          transition={{ duration: 2, repeat: Infinity }}
+        />
+        <Sparkles className="absolute top-32 right-10 text-white/30 w-8 h-8 animate-rotate360" />
+        <Star className="absolute bottom-32 right-32 text-[#FF4E00]/40 w-6 h-6 animate-pulse" />
       </div>
 
       {/* Background overlay */}
-      <div className="absolute inset-0 bg-black/40"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-[#122E72]/80 via-[#1e3a8a]/70 to-[#2563eb]/60"></div>
       
       {/* Background image effect */}
       <div className="absolute inset-0 opacity-20">
@@ -55,39 +101,79 @@ export default function SubscriptionForm() {
         />
       </div>
 
-      <div className="relative z-10 max-w-4xl mx-auto text-center">
+      <div className="relative z-10 container-responsive text-center">
         {/* Header */}
-        <div className="mb-12 animate-fadeInUp">
-          <button className="bg-gradient-to-r from-[#FF4A1C] to-[#e63e1a] hover:from-[#e63e1a] hover:to-[#d63e1a] text-white font-arabic font-bold rounded-xl py-4 px-12 text-lg shadow-lg transition-all duration-300 transform hover:scale-105 mb-8 relative overflow-hidden group">
+        <motion.div 
+          className="mb-12 scroll-animate"
+          initial={{ opacity: 0, y: -50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.button 
+            className="bg-gradient-to-r from-[#FF4E00] to-[#e63e00] hover:from-[#e63e00] hover:to-[#d63e00] text-white font-arabic font-bold rounded-xl py-4 px-12 text-responsive-lg shadow-enhanced btn-hover mb-8 relative overflow-hidden group"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
             <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-full group-hover:translate-x-0 transition-transform duration-700"></span>
             <span className="relative">اشترك الآن</span>
-          </button>
+          </motion.button>
           
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 font-arabic animate-fadeInUp" style={{animationDelay: '0.2s'}}>
-            وابدأ في تطوير <span className="text-[#FF4A1C] animate-pulse">تجربة عملائك</span>
-          </h2>
+          <motion.h2 
+            className="text-responsive-3xl font-bold text-white mb-4 font-arabic"
+            initial={{ opacity: 0, y: -30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            وابدأ في تطوير <span className="gradient-text animate-pulse">تجربة عملائك</span>
+          </motion.h2>
           
-          <p className="text-blue-200 text-lg font-arabic mb-8 animate-fadeInUp" style={{animationDelay: '0.4s'}}>
+          <motion.p 
+            className="text-blue-200 text-responsive-lg font-arabic mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             إدارة مطعمك بكل التفاصيل من خلال منصة واحدة
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Form Container */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 max-w-2xl mx-auto animate-fadeInUp shadow-2xl" style={{animationDelay: '0.6s'}}>
+        <motion.div 
+          className="glass-effect rounded-3xl p-8 border border-white/20 form-responsive shadow-enhanced scroll-animate"
+          initial={{ opacity: 0, scale: 0.8, y: 50 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+        >
           {/* Form Header */}
-          <div className="bg-gradient-to-r from-white to-gray-50 rounded-xl py-4 px-6 mb-8 transform hover:scale-105 transition-transform duration-300">
-            <h3 className="text-[#0B2A52] font-bold text-xl font-arabic">
+          <motion.div 
+            className="bg-gradient-to-r from-white to-gray-50 rounded-xl py-6 px-8 mb-8 card-hover"
+            initial={{ opacity: 0, y: -20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <h3 className="text-[#122E72] font-bold text-responsive-xl font-arabic">
               املأ النموذج وابدأ الآن
             </h3>
-          </div>
+          </motion.div>
 
           <form onSubmit={handleSubmit} className="space-y-8" dir="rtl">
             {/* Restaurant Name */}
-            <div className="relative animate-slideInRight group" style={{animationDelay: '0.8s'}}>
+            <motion.div 
+              className="relative group"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1 }}
+            >
               <div className="relative">
-                <Store className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 transition-all duration-300 ${
+                <Store className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 transition-all duration-300 z-10 ${
                   focusedField === 'restaurantName' || formData.restaurantName 
-                    ? 'text-[#FF4A1C] scale-110' 
+                    ? 'text-[#FF4E00] scale-110 animate-pulse' 
                     : 'text-blue-200'
                 }`} />
                 <input
@@ -98,21 +184,27 @@ export default function SubscriptionForm() {
                   onChange={handleChange}
                   onFocus={() => setFocusedField('restaurantName')}
                   onBlur={() => setFocusedField('')}
-                  className="w-full pr-14 pl-6 py-4 rounded-xl border-2 border-[#FF4A1C]/60 bg-white/5 text-white placeholder-blue-200 font-arabic text-lg focus:outline-none focus:border-[#FF4A1C] focus:ring-2 focus:ring-[#FF4A1C]/30 focus:bg-white/10 transition-all duration-300 transform focus:scale-105"
+                  className="w-full pr-14 pl-6 py-4 rounded-xl border-2 border-[#FF4E00]/60 bg-white/5 text-white placeholder-blue-200 font-arabic text-responsive-base focus:outline-none focus:border-[#FF4E00] focus:ring-2 focus:ring-[#FF4E00]/30 focus:bg-white/10 transition-all duration-300 btn-hover"
                   required
                 />
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF4A1C]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none ${
+                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF4E00]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none ${
                   focusedField === 'restaurantName' ? 'opacity-100' : ''
                 }`}></div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Phone Number */}
-            <div className="relative animate-slideInLeft group" style={{animationDelay: '1s'}}>
+            <motion.div 
+              className="relative group"
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+            >
               <div className="relative">
-                <Phone className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 transition-all duration-300 ${
+                <Phone className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 transition-all duration-300 z-10 ${
                   focusedField === 'phoneNumber' || formData.phoneNumber 
-                    ? 'text-[#FF4A1C] scale-110 animate-pulse' 
+                    ? 'text-[#FF4E00] scale-110 animate-pulse' 
                     : 'text-blue-200'
                 }`} />
                 <input
@@ -123,21 +215,27 @@ export default function SubscriptionForm() {
                   onChange={handleChange}
                   onFocus={() => setFocusedField('phoneNumber')}
                   onBlur={() => setFocusedField('')}
-                  className="w-full pr-14 pl-6 py-4 rounded-xl border-2 border-[#FF4A1C]/60 bg-white/5 text-white placeholder-blue-200 font-arabic text-lg focus:outline-none focus:border-[#FF4A1C] focus:ring-2 focus:ring-[#FF4A1C]/30 focus:bg-white/10 transition-all duration-300 transform focus:scale-105"
+                  className="w-full pr-14 pl-6 py-4 rounded-xl border-2 border-[#FF4E00]/60 bg-white/5 text-white placeholder-blue-200 font-arabic text-responsive-base focus:outline-none focus:border-[#FF4E00] focus:ring-2 focus:ring-[#FF4E00]/30 focus:bg-white/10 transition-all duration-300 btn-hover"
                   required
                 />
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF4A1C]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none ${
+                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF4E00]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none ${
                   focusedField === 'phoneNumber' ? 'opacity-100' : ''
                 }`}></div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Activity Dropdown */}
-            <div className="relative animate-slideInRight group" style={{animationDelay: '1.2s'}}>
+            <motion.div 
+              className="relative group"
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1.4 }}
+            >
               <div className="relative">
                 <Activity className={`absolute right-4 top-1/2 transform -translate-y-1/2 w-6 h-6 transition-all duration-300 z-10 ${
                   focusedField === 'activity' || formData.activity 
-                    ? 'text-[#FF4A1C] scale-110 rotate-12' 
+                    ? 'text-[#FF4E00] scale-110 rotate-12' 
                     : 'text-blue-200'
                 }`} />
                 <select
@@ -146,7 +244,7 @@ export default function SubscriptionForm() {
                   onChange={handleChange}
                   onFocus={() => setFocusedField('activity')}
                   onBlur={() => setFocusedField('')}
-                  className="w-full pr-14 pl-12 py-4 rounded-xl border-2 border-[#FF4A1C]/60 bg-white/5 text-white font-arabic text-lg focus:outline-none focus:border-[#FF4A1C] focus:ring-2 focus:ring-[#FF4A1C]/30 focus:bg-white/10 transition-all duration-300 transform focus:scale-105 appearance-none cursor-pointer"
+                  className="w-full pr-14 pl-12 py-4 rounded-xl border-2 border-[#FF4E00]/60 bg-white/5 text-white font-arabic text-responsive-base focus:outline-none focus:border-[#FF4E00] focus:ring-2 focus:ring-[#FF4E00]/30 focus:bg-white/10 transition-all duration-300 btn-hover appearance-none cursor-pointer"
                   required
                 >
                   <option value="" className="text-gray-800 bg-white">النشاط</option>
@@ -157,82 +255,48 @@ export default function SubscriptionForm() {
                   ))}
                 </select>
                 <ChevronDown className={`absolute left-4 top-1/2 transform -translate-y-1/2 w-6 h-6 pointer-events-none transition-all duration-300 ${
-                  focusedField === 'activity' ? 'text-[#FF4A1C] rotate-180' : 'text-blue-200'
+                  focusedField === 'activity' ? 'text-[#FF4E00] rotate-180' : 'text-blue-200'
                 }`} />
-                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF4A1C]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none ${
+                <div className={`absolute inset-0 rounded-xl bg-gradient-to-r from-[#FF4E00]/20 to-transparent opacity-0 transition-opacity duration-300 pointer-events-none ${
                   focusedField === 'activity' ? 'opacity-100' : ''
                 }`}></div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Submit Button */}
-            <div className="animate-fadeInUp" style={{animationDelay: '1.4s'}}>
-              <button
-              type="submit"
-              className="w-full bg-gradient-to-r from-[#FF4A1C] to-[#e63e1a] hover:from-[#e63e1a] hover:to-[#d63e1a] text-white font-arabic font-bold rounded-xl py-4 text-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl relative overflow-hidden group"
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 1.6 }}
+            >
+              <motion.button
+                type="submit"
+                className="w-full bg-gradient-to-r from-[#FF4E00] to-[#e63e00] hover:from-[#e63e00] hover:to-[#d63e00] text-white font-arabic font-bold rounded-xl py-4 text-responsive-lg shadow-enhanced btn-hover relative overflow-hidden group"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
               >
-              <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-full group-hover:translate-x-0 transition-transform duration-700"></span>
-              <span className="relative">
-                اشترك الآن
-              </span>
-              </button>
-            </div>
-            </form>
+                <span className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform translate-x-full group-hover:translate-x-0 transition-transform duration-700"></span>
+                <span className="relative">
+                  ارسل البيانات
+                </span>
+              </motion.button>
+            </motion.div>
+          </form>
 
           {/* Footer text */}
-          <p className="text-blue-200 text-sm font-arabic mt-6 leading-relaxed animate-fadeInUp" style={{animationDelay: '1.6s'}}>
+          <motion.p 
+            className="text-blue-200 text-responsive-sm font-arabic mt-6 leading-relaxed"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 1.8 }}
+          >
             اشترك الآن وابدأ تجربة فريدة تريح<br />
             من مبيعاتك وتزيد عملائك
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
       </div>
-
-      <style>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        .animate-fadeInUp {
-          animation: fadeInUp 0.6s ease-out forwards;
-        }
-        
-        .animate-slideInRight {
-          animation: slideInRight 0.6s ease-out forwards;
-        }
-        
-        .animate-slideInLeft {
-          animation: slideInLeft 0.6s ease-out forwards;
-        }
-      `}</style>
     </section>
   );
 }
